@@ -52,7 +52,7 @@ public class AuthenticationService {
 		user = userRepository.save(user);
 
 		String jwt = jwtService.generateToken(user);
-		
+
 		saveUserToken(user, jwt);
 
 		return new AuthenticationResponse(jwt);
@@ -73,9 +73,9 @@ public class AuthenticationService {
 		User user = userRepository.findByUsername(request.getUsername()).orElseThrow();
 
 		String token = jwtService.generateToken(user);
-		
+
 		revokeAllTokenByUser(user);
-		
+
 		saveUserToken(user, token);
 
 		return new AuthenticationResponse(token);
@@ -83,12 +83,11 @@ public class AuthenticationService {
 
 	private void revokeAllTokenByUser(User user) {
 		List<Token> validTokenListByUser = tokenRepository.findAllTokenByUser(user.getId());
-		
-		if(!validTokenListByUser.isEmpty()) {
+
+		if (!validTokenListByUser.isEmpty()) {
 			validTokenListByUser.forEach(t -> t.setLoggedOut(true));
 		}
-		
+
 		tokenRepository.saveAll(validTokenListByUser);
 	}
-
 }

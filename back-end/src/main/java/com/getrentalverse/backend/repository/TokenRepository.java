@@ -12,6 +12,6 @@ public interface TokenRepository extends JpaRepository<Token, Long> {
 	@Query("SELECT t from Token t INNER JOIN User u ON t.user.id = u.id WHERE t.user.id = :userId AND t.loggedOut = false")
 
 	List<Token> findAllTokenByUser(Long userId);
-	
+
 	Optional<Token> findByToken(String token);
 }

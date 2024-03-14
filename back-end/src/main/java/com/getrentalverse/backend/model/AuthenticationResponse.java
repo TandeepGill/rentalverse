@@ -1,7 +1,7 @@
 package com.getrentalverse.backend.model;
 
 public class AuthenticationResponse {
-	
+
 	private String token;
 
 	public AuthenticationResponse(String token) {
@@ -10,5 +10,5 @@ public class AuthenticationResponse {
 
 	public String getToken() {
 		return token;
-	}	
+	}
 }
