@@ -9,6 +9,7 @@ import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Service;
 
 import com.getrentalverse.backend.model.User;
+import com.getrentalverse.backend.repository.TokenRepository;
 
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jwts;
@@ -18,6 +19,12 @@ import io.jsonwebtoken.security.Keys;
 @Service
 public class JwtService {
 	private final String SECRET_KEY = "4364a0d4e3b07b03677ca66bb8e74dcab3905e0fc9f04c44abe1d401b8ece334";
+	
+	private final TokenRepository tokenRepository;
+	
+	public JwtService(TokenRepository tokenRepository) {
+		this.tokenRepository = tokenRepository;
+	}
 
 	public String extractUsername(String token) {
 		return extractClaim(token, Claims::getSubject);
@@ -26,7 +33,9 @@ public class JwtService {
 	public boolean isValid(String token, UserDetails userDetails) {
 		String username = extractUsername(token);
 		
-		return (username.equals(userDetails.getUsername())) && !isTokenExpired(token);
+		boolean isValidToken = tokenRepository.findByToken(token).map(t -> !t.isLoggedOut()).orElse(false);
+		
+		return (username.equals(userDetails.getUsername())) && !isTokenExpired(token) && isValidToken;
 	}
 	
 	private boolean isTokenExpired(String token) {
