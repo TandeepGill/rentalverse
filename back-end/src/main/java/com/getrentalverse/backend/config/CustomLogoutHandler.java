@@ -12,9 +12,9 @@ import jakarta.servlet.http.HttpServletResponse;
 
 @Component
 public class CustomLogoutHandler implements LogoutHandler {
-	
+
 	private final TokenRepository tokenRepository;
-	
+
 	public CustomLogoutHandler(TokenRepository tokenRepository) {
 		this.tokenRepository = tokenRepository;
 	}
@@ -28,13 +28,12 @@ public class CustomLogoutHandler implements LogoutHandler {
 		}
 
 		String token = authHeader.substring(7);
-		
+
 		Token storedToken = tokenRepository.findByToken(token).orElse(null);
-		
-		if(token != null) {
+
+		if (token != null) {
 			storedToken.setLoggedOut(true);
 			tokenRepository.save(storedToken);
 		}
 	}
-
 }

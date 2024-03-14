@@ -33,7 +33,6 @@ public class SecurityConfig {
 
 	public SecurityConfig(UserDetailsServiceImp userDetailsServiceImp, JwtAuthenticationFilter jwtAuthenticationFilter,
 			CustomAccessDeniedHandler customAccessDeniedHandler, CustomLogoutHandler customLogoutHandler) {
-		super();
 		this.userDetailsServiceImp = userDetailsServiceImp;
 		this.jwtAuthenticationFilter = jwtAuthenticationFilter;
 		this.customAccessDeniedHandler = customAccessDeniedHandler;

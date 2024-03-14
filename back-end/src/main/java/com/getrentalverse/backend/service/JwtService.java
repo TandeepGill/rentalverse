@@ -19,9 +19,9 @@ import io.jsonwebtoken.security.Keys;
 @Service
 public class JwtService {
 	private final String SECRET_KEY = "4364a0d4e3b07b03677ca66bb8e74dcab3905e0fc9f04c44abe1d401b8ece334";
-	
+
 	private final TokenRepository tokenRepository;
-	
+
 	public JwtService(TokenRepository tokenRepository) {
 		this.tokenRepository = tokenRepository;
 	}
@@ -29,19 +29,19 @@ public class JwtService {
 	public String extractUsername(String token) {
 		return extractClaim(token, Claims::getSubject);
 	}
-	
+
 	public boolean isValid(String token, UserDetails userDetails) {
 		String username = extractUsername(token);
-		
+
 		boolean isValidToken = tokenRepository.findByToken(token).map(t -> !t.isLoggedOut()).orElse(false);
-		
+
 		return (username.equals(userDetails.getUsername())) && !isTokenExpired(token) && isValidToken;
 	}
-	
+
 	private boolean isTokenExpired(String token) {
 		return extractExpiration(token).before(new Date());
 	}
-	
+
 	private Date extractExpiration(String token) {
 		return extractClaim(token, Claims::getExpiration);
 	}
@@ -50,7 +50,7 @@ public class JwtService {
 		Claims claims = extractAllClaims(token);
 		return resolver.apply(claims);
 	}
-	
+
 	private Claims extractAllClaims(String token) {
 		return Jwts.parser().verifyWith(getSignInKey()).build().parseSignedClaims(token).getPayload();
 	}

@@ -10,7 +10,7 @@ public class DemoController {
 	public ResponseEntity<String> demo() {
 		return ResponseEntity.ok("Hello User!");
 	}
-	
+
 	@GetMapping("admin_only")
 	public ResponseEntity<String> adminOnly() {
 		return ResponseEntity.ok("Hello Admin!");

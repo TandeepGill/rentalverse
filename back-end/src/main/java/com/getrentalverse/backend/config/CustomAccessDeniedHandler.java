@@ -18,5 +18,4 @@ public class CustomAccessDeniedHandler implements AccessDeniedHandler {
 			AccessDeniedException accessDeniedException) throws IOException, ServletException {
 		response.setStatus(403);
 	}
-
 }
