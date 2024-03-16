@@ -1,10 +1,13 @@
-import { Route, Routes } from 'react-router-dom';
-import Home from './pages/Home';
+import { Navigate, Route, Routes } from 'react-router-dom';
+import Auth from './pages/Auth';
+import Dashboard from './pages/Dashboard';
 
 function App() {
   return (
     <Routes>
-      <Route path='/' element={<Home />} />
+      <Route path='/' element={<Navigate to='/auth' replace />} />
+      <Route path='/auth' element={<Auth />} />
+      <Route path='/dashboard' element={<Dashboard />} />
     </Routes>
   );
 }
