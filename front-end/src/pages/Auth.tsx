@@ -1,9 +1,14 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
+import { useNavigate } from 'react-router-dom';
 import SignIn from '../components/authentication/SignIn';
 import SignUp from '../components/authentication/SignUp';
 
 const Auth = () => {
   const [signUpVisible, setSignUpVisible] = useState(false);
+
+  const getFormData = (data) => {
+    console.log('Form Data: ', data);
+  };
 
   const signUpHandler = () => {
     signUpVisible ? setSignUpVisible(false) : setSignUpVisible(true);
@@ -13,9 +18,9 @@ const Auth = () => {
     <>
       <div className='h-screen flex items-center justify-center'>
         {signUpVisible ? (
-          <SignUp signUpVisibleCheck={signUpHandler} />
+          <SignUp signUpVisibleCheck={signUpHandler} onSubmit={getFormData} />
         ) : (
-          <SignIn signUpVisibleCheck={signUpHandler} />
+          <SignIn signUpVisibleCheck={signUpHandler} onSubmit={getFormData} />
         )}
       </div>
     </>
