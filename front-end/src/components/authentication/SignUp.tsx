@@ -1,25 +1,29 @@
 import { useState } from 'react';
 
+interface formData {
+  firstName: string;
+  lastName: string;
+  email: string;
+  password: string;
+}
+
 const initialState = { firstName: '', lastName: '', email: '', password: '' };
 
-const SignUp = (props) => {
+const SignUp = (props: {
+  signUpVisibleCheck: () => void;
+  onSubmit: (data: formData) => void;
+}) => {
+  const { signUpVisibleCheck, onSubmit } = props;
   const [formValue, setFormValue] = useState(initialState);
   const { firstName, lastName, email, password } = formValue;
 
-  const handleChange = (e) => {
-    if (e.target.id === 'firstName')
-      setFormValue({ ...formValue, firstName: e.target.value });
-    if (e.target.id === 'lastName')
-      setFormValue({ ...formValue, lastName: e.target.value });
-    if (e.target.id === 'email')
-      setFormValue({ ...formValue, email: e.target.value });
-    if (e.target.id === 'password')
-      setFormValue({ ...formValue, password: e.target.value });
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setFormValue({ ...formValue, [e.target.name]: e.target.value });
   };
 
-  const submitHandler = (e) => {
+  const submitHandler = (e: React.FormEvent) => {
     e.preventDefault();
-    props.onSubmit(formValue);
+    onSubmit(formValue);
     setFormValue(initialState);
   };
 
@@ -140,7 +144,7 @@ const SignUp = (props) => {
             <a
               href='#'
               className='font-semibold leading-6 text-orange-600 hover:text-orange-500'
-              onClick={props.signUpVisibleCheck}
+              onClick={signUpVisibleCheck}
             >
               Sign in
             </a>
