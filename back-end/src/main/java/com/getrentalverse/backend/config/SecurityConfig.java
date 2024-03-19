@@ -42,8 +42,8 @@ public class SecurityConfig {
 	@Bean
 	SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
 		return http.csrf(AbstractHttpConfigurer::disable)
-				.authorizeHttpRequests(req -> req.requestMatchers("/login/**", "/register/**").permitAll()
-						.requestMatchers("/admin_only/**").hasAuthority("ADMIN").anyRequest().authenticated())
+				.authorizeHttpRequests(req -> req.requestMatchers("/api/v1/auth/login/**", "/api/v1/auth/register/**").permitAll()
+						.requestMatchers("/api/v1/auth/admin_only/**").hasAuthority("ADMIN").anyRequest().authenticated())
 				.userDetailsService(userDetailsServiceImp)
 				.exceptionHandling(e -> e.accessDeniedHandler(customAccessDeniedHandler)
 						.authenticationEntryPoint(new HttpStatusEntryPoint(HttpStatus.UNAUTHORIZED)))

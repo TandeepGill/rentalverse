@@ -1,21 +1,27 @@
 import { useState } from 'react';
 
+interface formData {
+  email: string;
+  password: string;
+}
+
 const initialState = { email: '', password: '' };
 
-const SignIn = (props) => {
+const SignIn = (props: {
+  signUpVisibleCheck: () => void;
+  onSubmit: (data: formData) => void;
+}) => {
+  const { signUpVisibleCheck, onSubmit } = props;
   const [formValue, setFormValue] = useState(initialState);
   const { email, password } = formValue;
 
-  const handleChange = (e) => {
-    if (e.target.id === 'email')
-      setFormValue({ ...formValue, email: e.target.value });
-    if (e.target.id === 'password')
-      setFormValue({ ...formValue, password: e.target.value });
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setFormValue({ ...formValue, [e.target.name]: e.target.value });
   };
 
-  const submitHandler = (e) => {
+  const submitHandler = (e: React.FormEvent) => {
     e.preventDefault();
-    props.onSubmit(formValue);
+    onSubmit(formValue);
     setFormValue(initialState);
   };
 
@@ -94,7 +100,7 @@ const SignIn = (props) => {
             <a
               href='#'
               className='font-semibold leading-6 text-orange-600 hover:text-orange-500'
-              onClick={props.signUpVisibleCheck}
+              onClick={signUpVisibleCheck}
             >
               Sign up
             </a>
