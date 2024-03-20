@@ -1,17 +1,16 @@
-import { useState, useEffect } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { useState } from 'react';
 import SignIn from '../components/authentication/SignIn';
 import SignUp from '../components/authentication/SignUp';
 
 interface newUser {
   firstName: string;
   lastName: string;
-  email: string;
+  username: string;
   password: string;
 }
 
 interface existingUser {
-  email: string;
+  username: string;
   password: string;
 }
 

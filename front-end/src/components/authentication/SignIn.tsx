@@ -1,11 +1,15 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
+import { useLoginUserMutation } from '../../api/authApi';
+import { useNavigate } from 'react-router-dom';
+import { useAppDispatch } from '../../app/hooks';
+import { setUser } from '../../features/authSlice';
 
 interface formData {
-  email: string;
+  username: string;
   password: string;
 }
 
-const initialState = { email: '', password: '' };
+const initialState = { username: '', password: '' };
 
 const SignIn = (props: {
   signUpVisibleCheck: () => void;
@@ -13,7 +17,19 @@ const SignIn = (props: {
 }) => {
   const { signUpVisibleCheck, onSubmit } = props;
   const [formValue, setFormValue] = useState(initialState);
-  const { email, password } = formValue;
+  const { username, password } = formValue;
+  const navigate = useNavigate();
+  const dispatch = useAppDispatch();
+
+  const [
+    loginUser,
+    {
+      data: loginData,
+      isSuccess: isLoginSuccess,
+      isError: isLoginError,
+      error: loginError,
+    },
+  ] = useLoginUserMutation();
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setFormValue({ ...formValue, [e.target.name]: e.target.value });
@@ -24,6 +40,27 @@ const SignIn = (props: {
     onSubmit(formValue);
     setFormValue(initialState);
   };
+
+  const loginHandler = async () => {
+    if (username && password) {
+      await loginUser({ username, password });
+    } else {
+      console.log('Email and password are required.');
+    }
+  };
+
+  useEffect(() => {
+    if (isLoginSuccess) {
+      dispatch(setUser({ token: loginData?.token }));
+      navigate('/dashboard');
+    }
+  }, [dispatch, isLoginSuccess, loginData?.token, navigate]);
+
+  useEffect(() => {
+    if (isLoginError) {
+      console.log('Please enter valid Email and Password and try again!');
+    }
+  }, [isLoginError]);
 
   return (
     <>
@@ -43,19 +80,19 @@ const SignIn = (props: {
           >
             <div>
               <label
-                htmlFor='email'
+                htmlFor='username'
                 className='block text-sm font-medium leading-6 text-gray-900'
               >
                 Email address
               </label>
               <div className='mt-2'>
                 <input
-                  id='email'
-                  name='email'
+                  id='username'
+                  name='username'
                   type='email'
-                  value={email}
+                  value={username}
                   onChange={handleChange}
-                  autoComplete='email'
+                  autoComplete='username'
                   required
                   className='block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-orange-600 sm:text-sm sm:leading-6'
                 />
@@ -89,6 +126,7 @@ const SignIn = (props: {
               <button
                 type='submit'
                 className='flex w-full justify-center rounded-md bg-orange-600 px-3 py-1.5 text-sm font-semibold leading-6 text-white shadow-sm hover:bg-orange-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-orange-600'
+                onClick={() => loginHandler()}
               >
                 Sign in
               </button>

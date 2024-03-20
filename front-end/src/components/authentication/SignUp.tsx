@@ -1,13 +1,23 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
+import { useRegisterUserMutation } from '../../api/authApi';
+import { useDispatch } from 'react-redux';
+import { useAppDispatch } from '../../app/hooks';
+import { useNavigate } from 'react-router-dom';
+import { setUser } from '../../features/authSlice';
 
 interface formData {
   firstName: string;
   lastName: string;
-  email: string;
+  username: string;
   password: string;
 }
 
-const initialState = { firstName: '', lastName: '', email: '', password: '' };
+const initialState = {
+  firstName: '',
+  lastName: '',
+  username: '',
+  password: '',
+};
 
 const SignUp = (props: {
   signUpVisibleCheck: () => void;
@@ -15,7 +25,9 @@ const SignUp = (props: {
 }) => {
   const { signUpVisibleCheck, onSubmit } = props;
   const [formValue, setFormValue] = useState(initialState);
-  const { firstName, lastName, email, password } = formValue;
+  const { firstName, lastName, username, password } = formValue;
+  const navigate = useNavigate();
+  const dispatch = useAppDispatch();
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setFormValue({ ...formValue, [e.target.name]: e.target.value });
@@ -26,6 +38,42 @@ const SignUp = (props: {
     onSubmit(formValue);
     setFormValue(initialState);
   };
+
+  const [
+    registerUser,
+    {
+      data: registerData,
+      isSuccess: isRegisterSuccess,
+      isError: isRegisterError,
+      error: registerError,
+    },
+  ] = useRegisterUserMutation();
+
+  const registerHandler = async () => {
+    if (firstName && lastName && username && password) {
+      await registerUser({
+        firstName,
+        lastName,
+        username,
+        password,
+        role: 'USER',
+      });
+    }
+  };
+
+  useEffect(() => {
+    if (isRegisterSuccess) {
+      useDispatch;
+      dispatch(setUser({ token: registerData?.token }));
+      navigate('/dashboard');
+    }
+  }, [dispatch, isRegisterSuccess, navigate, registerData?.token]);
+
+  useEffect(() => {
+    if (isRegisterError) {
+      console.log('That Email already exists, please login to continue!');
+    }
+  }, [isRegisterError]);
 
   return (
     <>
@@ -87,19 +135,19 @@ const SignUp = (props: {
 
             <div>
               <label
-                htmlFor='email'
+                htmlFor='username'
                 className='block text-sm font-medium leading-6 text-gray-900'
               >
                 Email address
               </label>
               <div className='mt-2'>
                 <input
-                  id='email'
-                  name='email'
+                  id='username'
+                  name='username'
                   type='email'
-                  value={email}
+                  value={username}
                   onChange={handleChange}
-                  autoComplete='email'
+                  autoComplete='username'
                   required
                   className='block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-orange-600 sm:text-sm sm:leading-6'
                 />
@@ -133,6 +181,7 @@ const SignUp = (props: {
               <button
                 type='submit'
                 className='flex w-full justify-center rounded-md bg-orange-600 px-3 py-1.5 text-sm font-semibold leading-6 text-white shadow-sm hover:bg-orange-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-orange-600'
+                onClick={() => registerHandler()}
               >
                 Sign up
               </button>
