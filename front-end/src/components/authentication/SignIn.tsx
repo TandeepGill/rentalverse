@@ -1,21 +1,18 @@
-import { useEffect, useState } from 'react';
-import { useLoginUserMutation } from '../../api/authApi';
-import { useNavigate } from 'react-router-dom';
-import { useAppDispatch } from '../../app/hooks';
-import { setUser } from '../../features/authSlice';
+import { useEffect, useState } from "react";
+import { useLoginUserMutation } from "../../api/authApi";
+import { Link, useNavigate } from "react-router-dom";
+import { useAppDispatch } from "../../app/hooks";
+import { setUser } from "../../features/authSlice";
 
 interface formData {
   username: string;
   password: string;
 }
 
-const initialState = { username: '', password: '' };
+const initialState = { username: "", password: "" };
 
-const SignIn = (props: {
-  signUpVisibleCheck: () => void;
-  onSubmit: (data: formData) => void;
-}) => {
-  const { signUpVisibleCheck, onSubmit } = props;
+const SignIn = (props: { onSubmit: (data: formData) => void }) => {
+  const { onSubmit } = props;
   const [formValue, setFormValue] = useState(initialState);
   const { username, password } = formValue;
   const navigate = useNavigate();
@@ -45,20 +42,20 @@ const SignIn = (props: {
     if (username && password) {
       await loginUser({ username, password });
     } else {
-      console.log('Email and password are required.');
+      console.log("Email and password are required.");
     }
   };
 
   useEffect(() => {
     if (isLoginSuccess) {
       dispatch(setUser({ token: loginData?.token }));
-      navigate('/dashboard');
+      navigate("/dashboard");
     }
   }, [dispatch, isLoginSuccess, loginData?.token, navigate]);
 
   useEffect(() => {
     if (isLoginError) {
-      console.log('Please enter valid Email and Password and try again!');
+      console.log("Please enter valid Email and Password and try again!");
     }
   }, [isLoginError]);
 
@@ -67,7 +64,7 @@ const SignIn = (props: {
       <div className='flex min-h-full flex-1 flex-col justify-center px-6 py-12 lg:px-8'>
         <div className='sm:mx-auto sm:w-full sm:max-w-sm'>
           <h2 className='mt-10 text-center text-2xl font-bold leading-9 tracking-tight text-gray-900'>
-            Sign in to your account
+            Log in to your account
           </h2>
         </div>
 
@@ -128,20 +125,18 @@ const SignIn = (props: {
                 className='flex w-full justify-center rounded-md bg-orange-600 px-3 py-1.5 text-sm font-semibold leading-6 text-white shadow-sm hover:bg-orange-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-orange-600'
                 onClick={() => loginHandler()}
               >
-                Sign in
+                Log in
               </button>
             </div>
           </form>
 
           <p className='mt-10 text-center text-sm text-gray-500'>
-            Not a member?{' '}
-            <a
-              href='#'
-              className='font-semibold leading-6 text-orange-600 hover:text-orange-500'
-              onClick={signUpVisibleCheck}
-            >
-              Sign up
-            </a>
+            Not a member?{" "}
+            <Link to='/auth/signup'>
+              <span className='font-semibold leading-6 text-orange-600 hover:text-orange-500'>
+                Sign up
+              </span>
+            </Link>
           </p>
         </div>
       </div>

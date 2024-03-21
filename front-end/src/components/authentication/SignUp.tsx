@@ -1,9 +1,9 @@
-import { useEffect, useState } from 'react';
-import { useRegisterUserMutation } from '../../api/authApi';
-import { useDispatch } from 'react-redux';
-import { useAppDispatch } from '../../app/hooks';
-import { useNavigate } from 'react-router-dom';
-import { setUser } from '../../features/authSlice';
+import { useEffect, useState } from "react";
+import { useRegisterUserMutation } from "../../api/authApi";
+import { useDispatch } from "react-redux";
+import { useAppDispatch } from "../../app/hooks";
+import { Link, useNavigate } from "react-router-dom";
+import { setUser } from "../../features/authSlice";
 
 interface formData {
   firstName: string;
@@ -13,17 +13,14 @@ interface formData {
 }
 
 const initialState = {
-  firstName: '',
-  lastName: '',
-  username: '',
-  password: '',
+  firstName: "",
+  lastName: "",
+  username: "",
+  password: "",
 };
 
-const SignUp = (props: {
-  signUpVisibleCheck: () => void;
-  onSubmit: (data: formData) => void;
-}) => {
-  const { signUpVisibleCheck, onSubmit } = props;
+const SignUp = (props: { onSubmit: (data: formData) => void }) => {
+  const { onSubmit } = props;
   const [formValue, setFormValue] = useState(initialState);
   const { firstName, lastName, username, password } = formValue;
   const navigate = useNavigate();
@@ -56,7 +53,7 @@ const SignUp = (props: {
         lastName,
         username,
         password,
-        role: 'USER',
+        role: "USER",
       });
     }
   };
@@ -65,13 +62,13 @@ const SignUp = (props: {
     if (isRegisterSuccess) {
       useDispatch;
       dispatch(setUser({ token: registerData?.token }));
-      navigate('/dashboard');
+      navigate("/dashboard");
     }
   }, [dispatch, isRegisterSuccess, navigate, registerData?.token]);
 
   useEffect(() => {
     if (isRegisterError) {
-      console.log('That Email already exists, please login to continue!');
+      console.log("That Email already exists, please login to continue!");
     }
   }, [isRegisterError]);
 
@@ -189,14 +186,12 @@ const SignUp = (props: {
           </form>
 
           <p className='mt-10 text-center text-sm text-gray-500'>
-            Already a member?{' '}
-            <a
-              href='#'
-              className='font-semibold leading-6 text-orange-600 hover:text-orange-500'
-              onClick={signUpVisibleCheck}
-            >
-              Sign in
-            </a>
+            Already a member?{" "}
+            <Link to='/auth/login'>
+              <span className='font-semibold leading-6 text-orange-600 hover:text-orange-500'>
+                Log in
+              </span>
+            </Link>
           </p>
         </div>
       </div>
