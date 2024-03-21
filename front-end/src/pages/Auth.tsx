@@ -1,6 +1,5 @@
-import { useState } from 'react';
-import SignIn from '../components/authentication/SignIn';
-import SignUp from '../components/authentication/SignUp';
+import SignIn from "../components/authentication/SignIn";
+import SignUp from "../components/authentication/SignUp";
 
 interface newUser {
   firstName: string;
@@ -15,24 +14,17 @@ interface existingUser {
 }
 
 const Auth = () => {
-  const [signUpVisible, setSignUpVisible] = useState(false);
+  const { pathname } = location;
 
   const getFormData = (data: newUser | existingUser) => {
-    console.log('Form Data: ', data);
-  };
-
-  const signUpHandler = () => {
-    signUpVisible ? setSignUpVisible(false) : setSignUpVisible(true);
+    console.log("Form Data: ", data);
   };
 
   return (
     <>
-      <div className='h-screen flex items-center justify-center'>
-        {signUpVisible ? (
-          <SignUp signUpVisibleCheck={signUpHandler} onSubmit={getFormData} />
-        ) : (
-          <SignIn signUpVisibleCheck={signUpHandler} onSubmit={getFormData} />
-        )}
+      <div className='flex h-screen items-center justify-center'>
+        {pathname === "/auth/signup" ? <SignUp onSubmit={getFormData} /> : null}
+        {pathname === "/auth/login" ? <SignIn onSubmit={getFormData} /> : null}
       </div>
     </>
   );

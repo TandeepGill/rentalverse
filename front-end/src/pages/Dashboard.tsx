@@ -1,6 +1,6 @@
-import { useNavigate } from 'react-router-dom';
-import { useAppDispatch } from '../app/hooks';
-import { logout } from '../features/authSlice';
+import { useNavigate } from "react-router-dom";
+import { useAppDispatch } from "../app/hooks";
+import { logout } from "../features/authSlice";
 
 const Dashboard = () => {
   const dispatch = useAppDispatch();
@@ -8,11 +8,11 @@ const Dashboard = () => {
 
   const logoutHandler = () => {
     dispatch(logout());
-    navigate('/');
+    navigate("/");
   };
 
   return (
-    <div className='h-screen flex items-center justify-center text-orange-600'>
+    <div className='flex h-screen items-center justify-center text-orange-600'>
       <h1 className='text-6xl'>Dashboard</h1>
       <button
         type='button'
