@@ -50,7 +50,7 @@ const Pricing = () => {
       <div id='pricing' className='bg-white py-24 sm:py-32'>
         <div className='mx-auto max-w-7xl px-6 lg:px-8'>
           <div className='mx-auto max-w-4xl text-center'>
-            <h2 className='text-2xl font-semibold leading-7 text-orange-600'>
+            <h2 className='text-xl font-semibold leading-7 text-orange-600'>
               Pricing
             </h2>
             <p className='mt-2 text-4xl font-bold tracking-tight text-gray-900 sm:text-5xl'>
@@ -101,7 +101,7 @@ const Pricing = () => {
                   id={tier.id}
                   className={classNames(
                     tier.mostPopular ? "text-orange-600" : "text-gray-900",
-                    "text-lg font-semibold leading-8",
+                    "text-xl font-semibold leading-8",
                   )}
                 >
                   {tier.name}
