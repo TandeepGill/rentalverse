@@ -1,4 +1,4 @@
-import { Navigate, Route, Routes } from "react-router-dom";
+import { Route, Routes } from "react-router-dom";
 import Auth from "./pages/Auth";
 import Dashboard from "./pages/Dashboard";
 import { useAppDispatch } from "./app/hooks";
@@ -7,6 +7,7 @@ import { setUser } from "./features/authSlice";
 import PrivateRoute from "./components/authentication/PrivateRoute";
 import Landing from "./pages/Landing";
 import Header from "./components/header/Header";
+import Footer from "./components/footer/Footer";
 
 function App() {
   const dispatch = useAppDispatch();
@@ -31,6 +32,7 @@ function App() {
           }
         />
       </Routes>
+      <Footer />
     </>
   );
 }
