@@ -1,4 +1,5 @@
 import About from "../components/landing/About";
+import Contact from "../components/landing/Contact";
 import Divider from "../components/landing/Divider";
 import Features from "../components/landing/Features";
 import Hero from "../components/landing/Hero";
@@ -15,6 +16,8 @@ const Landing = () => {
         <Pricing />
         <Divider section='' />
         <About />
+        <Divider section='' />
+        <Contact />
       </div>
     </>
   );

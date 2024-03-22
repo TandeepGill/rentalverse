@@ -26,7 +26,7 @@ const Hero = () => {
                   Get started
                 </a>
                 <a
-                  href='#'
+                  href='#features'
                   className='text-lg font-semibold leading-6 text-gray-900'
                 >
                   Learn more <span aria-hidden='true'>→</span>
