@@ -1,3 +1,4 @@
+import About from "../components/landing/About";
 import Divider from "../components/landing/Divider";
 import Features from "../components/landing/Features";
 import Hero from "../components/landing/Hero";
@@ -12,6 +13,8 @@ const Landing = () => {
         <Features />
         <Divider section='' />
         <Pricing />
+        <Divider section='' />
+        <About />
       </div>
     </>
   );
