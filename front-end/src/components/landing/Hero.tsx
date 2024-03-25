@@ -34,7 +34,7 @@ const Hero = () => {
               </div>
             </div>
             <img
-              src='https://images.unsplash.com/photo-1560520653-9e0e4c89eb11?q=80&w=1973&auto=format&fit=crop&w=1280&q=80'
+              src='/src/assets/hero-image.png'
               alt=''
               className='mt-10 aspect-[6/5] w-full max-w-lg rounded-2xl object-cover sm:mt-16 lg:mt-0 lg:max-w-none xl:row-span-2 xl:row-end-2 xl:mt-36'
             />

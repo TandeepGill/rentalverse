@@ -10,7 +10,6 @@ const Landing = () => {
     <>
       <div>
         <Hero />
-        <Divider section='' />
         <Features />
         <Divider section='' />
         <Pricing />

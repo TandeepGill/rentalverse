@@ -22,7 +22,7 @@ const Auth = () => {
 
   return (
     <>
-      <div className='flex h-screen items-center justify-center'>
+      <div className='flex h-screen items-center justify-center bg-[url(/src/assets/auth-page-background.png)] bg-cover bg-center'>
         {pathname === "/auth/signup" ? <SignUp onSubmit={getFormData} /> : null}
         {pathname === "/auth/login" ? <SignIn onSubmit={getFormData} /> : null}
       </div>
