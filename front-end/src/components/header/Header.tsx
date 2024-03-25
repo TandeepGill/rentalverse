@@ -15,7 +15,7 @@ const Header = () => {
 
   return (
     <>
-      <header className='bg-white'>
+      <header className='sticky top-0 z-50 bg-white'>
         <nav
           className='mx-auto flex max-w-7xl items-center justify-between gap-x-6 p-6 lg:px-8'
           aria-label='Global'
@@ -99,7 +99,9 @@ const Header = () => {
             </div>
             <div className='mt-6 flow-root'>
               <div className='-my-6 divide-y divide-gray-500/10'>
-                <div className='space-y-2 py-6'>
+                <div
+                  className={`space-y-2 py-6 ${url.length > 2 ? "hidden" : "block"} `}
+                >
                   {url.length < 2 &&
                     navigation.map((item) => (
                       <a
