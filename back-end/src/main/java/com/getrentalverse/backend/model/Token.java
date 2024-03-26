@@ -1,5 +1,7 @@
 package com.getrentalverse.backend.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -26,6 +28,7 @@ public class Token {
 
 	@ManyToOne
 	@JoinColumn(name = "user_id")
+	@JsonIgnore
 	private User user;
 
 	public long getId() {
