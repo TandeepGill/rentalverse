@@ -10,9 +10,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.getrentalverse.backend.model.AuthenticationResponse;
 import com.getrentalverse.backend.model.User;
-import com.getrentalverse.backend.service.AuthenticationService;
 
 import com.getrentalverse.backend.service.UserService;
 
