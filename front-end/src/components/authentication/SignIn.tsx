@@ -4,19 +4,15 @@ import { Link, useNavigate } from "react-router-dom";
 import { useAppDispatch } from "../../app/hooks";
 import { setUser } from "../../features/authSlice";
 
-interface formData {
-  username: string;
-  password: string;
-}
-
 const initialState = { username: "", password: "" };
 
-const SignIn = (props: { onSubmit: (data: formData) => void }) => {
-  const { onSubmit } = props;
+const SignIn = () => {
   const [formValue, setFormValue] = useState(initialState);
+  const [authUser, setAuthUser] = useState(initialState);
   const { username, password } = formValue;
   const navigate = useNavigate();
   const dispatch = useAppDispatch();
+  const user = JSON.parse(localStorage.getItem("user") || "{}");
 
   const [
     loginUser,
@@ -34,7 +30,7 @@ const SignIn = (props: { onSubmit: (data: formData) => void }) => {
 
   const submitHandler = (e: React.FormEvent) => {
     e.preventDefault();
-    onSubmit(formValue);
+    setAuthUser(formValue);
     setFormValue(initialState);
   };
 
@@ -47,11 +43,18 @@ const SignIn = (props: { onSubmit: (data: formData) => void }) => {
   };
 
   useEffect(() => {
-    if (isLoginSuccess) {
-      dispatch(setUser({ token: loginData?.token }));
+    if (user.token) {
       navigate("/dashboard");
     }
-  }, [dispatch, isLoginSuccess, loginData?.token, navigate]);
+  }, [user.token, navigate]);
+
+  useEffect(() => {
+    if (isLoginSuccess) {
+      dispatch(setUser({ token: loginData?.token }));
+      console.log(authUser);
+      navigate("/dashboard");
+    }
+  }, [dispatch, isLoginSuccess, authUser, loginData?.token, navigate]);
 
   useEffect(() => {
     if (isLoginError) {

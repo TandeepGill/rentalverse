@@ -1,16 +1,8 @@
 import { useEffect, useState } from "react";
 import { useRegisterUserMutation } from "../../api/authApi";
-import { useDispatch } from "react-redux";
 import { useAppDispatch } from "../../app/hooks";
 import { Link, useNavigate } from "react-router-dom";
 import { setUser } from "../../features/authSlice";
-
-interface formData {
-  firstName: string;
-  lastName: string;
-  username: string;
-  password: string;
-}
 
 const initialState = {
   firstName: "",
@@ -19,12 +11,13 @@ const initialState = {
   password: "",
 };
 
-const SignUp = (props: { onSubmit: (data: formData) => void }) => {
-  const { onSubmit } = props;
+const SignUp = () => {
   const [formValue, setFormValue] = useState(initialState);
+  const [authUser, setAuthUser] = useState(initialState);
   const { firstName, lastName, username, password } = formValue;
   const navigate = useNavigate();
   const dispatch = useAppDispatch();
+  const user = JSON.parse(localStorage.getItem("user") || "{}");
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setFormValue({ ...formValue, [e.target.name]: e.target.value });
@@ -32,7 +25,7 @@ const SignUp = (props: { onSubmit: (data: formData) => void }) => {
 
   const submitHandler = (e: React.FormEvent) => {
     e.preventDefault();
-    onSubmit(formValue);
+    setAuthUser(formValue);
     setFormValue(initialState);
   };
 
@@ -59,12 +52,18 @@ const SignUp = (props: { onSubmit: (data: formData) => void }) => {
   };
 
   useEffect(() => {
-    if (isRegisterSuccess) {
-      useDispatch;
-      dispatch(setUser({ token: registerData?.token }));
+    if (user.token) {
       navigate("/dashboard");
     }
-  }, [dispatch, isRegisterSuccess, navigate, registerData?.token]);
+  }, [user.token, navigate]);
+
+  useEffect(() => {
+    if (isRegisterSuccess) {
+      dispatch(setUser({ token: registerData?.token }));
+      console.log(authUser);
+      navigate("/dashboard");
+    }
+  }, [dispatch, isRegisterSuccess, authUser, navigate, registerData?.token]);
 
   useEffect(() => {
     if (isRegisterError) {
@@ -194,7 +193,6 @@ const SignUp = (props: { onSubmit: (data: formData) => void }) => {
             </Link>
           </p>
         </div>
-        {/* </div> */}
       </div>
     </>
   );
