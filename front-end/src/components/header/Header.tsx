@@ -1,6 +1,9 @@
 import { useState } from "react";
 import { Dialog } from "@headlessui/react";
 import { Bars3Icon, XMarkIcon } from "@heroicons/react/24/outline";
+import { useNavigate } from "react-router-dom";
+import { useAppDispatch } from "../../app/hooks";
+import { logout } from "../../features/authSlice";
 
 const navigation = [
   { name: "Features", href: "#features" },
@@ -10,8 +13,16 @@ const navigation = [
 ];
 
 const Header = () => {
+  const user = JSON.parse(localStorage.getItem("user") || "{}");
   const url: string = window.location.pathname;
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+  const dispatch = useAppDispatch();
+  const navigate = useNavigate();
+
+  const logoutHandler = () => {
+    dispatch(logout());
+    navigate("/");
+  };
 
   return (
     <>
@@ -42,18 +53,32 @@ const Header = () => {
               ))}
           </div>
           <div className='flex flex-1 items-center justify-end gap-x-6'>
-            <a
-              href='/auth/login'
-              className='hidden lg:block lg:text-base lg:font-semibold lg:leading-6 lg:text-gray-900'
-            >
-              Log in
-            </a>
-            <a
-              href='/auth/signup'
-              className='rounded-md bg-orange-600 px-3 py-2 text-base font-semibold text-white shadow-sm hover:bg-orange-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-orange-600'
-            >
-              Sign up
-            </a>
+            {!user.token && (
+              <a
+                href='/auth/login'
+                className='hidden lg:block lg:text-base lg:font-semibold lg:leading-6 lg:text-gray-900'
+              >
+                Log in
+              </a>
+            )}
+
+            {!user.token && (
+              <a
+                href='/auth/signup'
+                className='rounded-md bg-orange-600 px-3 py-2 text-base font-semibold text-white shadow-sm hover:bg-orange-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-orange-600'
+              >
+                Sign up
+              </a>
+            )}
+
+            {user.token && (
+              <button
+                className='rounded-md bg-orange-600 px-3 py-2 text-base font-semibold text-white shadow-sm hover:bg-orange-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-orange-600'
+                onClick={() => logoutHandler()}
+              >
+                Log out
+              </button>
+            )}
           </div>
           <div className='flex lg:hidden'>
             <button
@@ -82,12 +107,20 @@ const Header = () => {
                   <span className='font-normal text-slate-700'>VERSE</span>
                 </h1>
               </a>
-              <a
-                href='/auth/signup'
-                className='ml-auto rounded-md bg-orange-600 px-3 py-2 text-base font-semibold text-white shadow-sm hover:bg-orange-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-orange-600'
-              >
-                Sign up
-              </a>
+              {!user.token && (
+                <a
+                  href='/auth/signup'
+                  className='ml-auto rounded-md bg-orange-600 px-3 py-2 text-base font-semibold text-white shadow-sm hover:bg-orange-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-orange-600'
+                >
+                  Sign up
+                </a>
+              )}
+
+              {user.token && (
+                <button className='ml-auto rounded-md bg-orange-600 px-3 py-2 text-base font-semibold text-white shadow-sm hover:bg-orange-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-orange-600'>
+                  Log out
+                </button>
+              )}
               <button
                 type='button'
                 className='-m-2.5 rounded-md p-2.5 text-gray-700'
@@ -115,12 +148,14 @@ const Header = () => {
                     ))}
                 </div>
                 <div className='py-6'>
-                  <a
-                    href='/auth/login'
-                    className='-mx-3 block rounded-lg px-3 py-2.5 text-base font-semibold leading-7 text-gray-900 hover:bg-gray-50'
-                  >
-                    Log in
-                  </a>
+                  {!user.token && (
+                    <a
+                      href='/auth/login'
+                      className='-mx-3 block rounded-lg px-3 py-2.5 text-base font-semibold leading-7 text-gray-900 hover:bg-gray-50'
+                    >
+                      Log in
+                    </a>
+                  )}
                 </div>
               </div>
             </div>
