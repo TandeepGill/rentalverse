@@ -1,21 +1,29 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { Dialog } from "@headlessui/react";
 import { Bars3Icon, XMarkIcon } from "@heroicons/react/24/outline";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { useAppDispatch } from "../../app/hooks";
 import { logout } from "../../features/authSlice";
 
-const navigation = [
+const landingPageNav = [
   { name: "Features", href: "#features" },
   { name: "Pricing", href: "#pricing" },
   { name: "About", href: "#about" },
   { name: "Contact", href: "#contact" },
 ];
 
+const applicationNav = [
+  { name: "Dashboard", href: "dashboard" },
+  { name: "Properties", href: "properties" },
+  { name: "Calendar", href: "calendar" },
+  { name: "Contacts", href: "contacts" },
+];
+
 const Header = () => {
   const user = JSON.parse(localStorage.getItem("user") || "{}");
   const url: string = window.location.pathname;
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+  const [isInApplication, setIsInApplication] = useState(false);
   const dispatch = useAppDispatch();
   const navigate = useNavigate();
 
@@ -23,6 +31,26 @@ const Header = () => {
     dispatch(logout());
     navigate("/");
   };
+
+  useEffect(() => {
+    const isInApplicationUrlCheck = (url: string): boolean => {
+      switch (url) {
+        case "/":
+          return false;
+          break;
+        case "/auth/login":
+          return false;
+          break;
+        case "/auth/signup":
+          return false;
+          break;
+        default:
+          return true;
+      }
+    };
+
+    setIsInApplication(isInApplicationUrlCheck(url));
+  }, [url]);
 
   return (
     <>
@@ -41,8 +69,8 @@ const Header = () => {
             </a>
           </div>
           <div className='hidden lg:flex lg:gap-x-12'>
-            {url.length < 2 &&
-              navigation.map((item) => (
+            {!isInApplication &&
+              landingPageNav.map((item) => (
                 <a
                   key={item.name}
                   href={item.href}
@@ -50,6 +78,15 @@ const Header = () => {
                 >
                   {item.name}
                 </a>
+              ))}
+            {isInApplication &&
+              user.token &&
+              applicationNav.map((item) => (
+                <Link to={`/${item.href}`} key={item.href}>
+                  <span className='text-base font-semibold leading-6 text-gray-900'>
+                    {item.name}
+                  </span>
+                </Link>
               ))}
           </div>
           <div className='flex flex-1 items-center justify-end gap-x-6'>
@@ -132,11 +169,9 @@ const Header = () => {
             </div>
             <div className='mt-6 flow-root'>
               <div className='-my-6 divide-y divide-gray-500/10'>
-                <div
-                  className={`space-y-2 py-6 ${url.length > 2 ? "hidden" : "block"} `}
-                >
-                  {url.length < 2 &&
-                    navigation.map((item) => (
+                <div className='space-y-2 py-6'>
+                  {!isInApplication &&
+                    landingPageNav.map((item) => (
                       <a
                         key={item.name}
                         href={item.href}
@@ -145,6 +180,19 @@ const Header = () => {
                       >
                         {item.name}
                       </a>
+                    ))}
+
+                  {isInApplication &&
+                    user.token &&
+                    applicationNav.map((item) => (
+                      <Link to={`/${item.href}`} key={item.href}>
+                        <span
+                          className='-mx-3 block rounded-lg px-3 py-2 text-base font-semibold leading-7 text-gray-900 hover:bg-gray-50'
+                          onClick={() => setMobileMenuOpen(false)}
+                        >
+                          {item.name}
+                        </span>
+                      </Link>
                     ))}
                 </div>
                 <div className='py-6'>
