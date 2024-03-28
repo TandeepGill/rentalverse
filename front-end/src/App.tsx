@@ -8,6 +8,7 @@ import PrivateRoute from "./components/authentication/PrivateRoute";
 import Landing from "./pages/Landing";
 import Header from "./components/header/Header";
 import Footer from "./components/footer/Footer";
+import Error404 from "./components/error/Error404";
 
 function App() {
   const dispatch = useAppDispatch();
@@ -31,6 +32,7 @@ function App() {
             </PrivateRoute>
           }
         />
+        <Route path='*' element={<Error404 />} />
       </Routes>
       <Footer />
     </>
