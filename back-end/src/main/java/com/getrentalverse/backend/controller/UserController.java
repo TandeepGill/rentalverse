@@ -15,16 +15,16 @@ import com.getrentalverse.backend.model.User;
 import com.getrentalverse.backend.service.UserService;
 
 @RestController
-@RequestMapping("/api/v1/user")
+@RequestMapping("/api/v1/users")
 @CrossOrigin(origins = "http://localhost:3000")
 public class UserController {
 
 	@Autowired
 	private UserService userService;
 
-	@GetMapping("/{username}")
-	public ResponseEntity<?> findUserByUsername(@PathVariable String username) {
-		User user = userService.findUserByUsername(username);
+	@GetMapping("/{token}")
+	public ResponseEntity<?> findUserByToken(@PathVariable String token) {
+		User user = userService.findUserByToken(token);
 
 		if (user != null) {
 			return ResponseEntity.status(HttpStatus.OK).body(user);
