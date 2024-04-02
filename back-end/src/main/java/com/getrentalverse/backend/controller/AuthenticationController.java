@@ -13,7 +13,7 @@ import com.getrentalverse.backend.service.AuthenticationService;
 
 @RestController
 @RequestMapping("/api/v1/auth")
-@CrossOrigin(origins="http://localhost:3000")
+@CrossOrigin(origins = "http://localhost:3000")
 public class AuthenticationController {
 
 	private final AuthenticationService authService;
