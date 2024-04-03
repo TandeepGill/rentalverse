@@ -10,7 +10,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.getrentalverse.backend.model.User;
+import com.getrentalverse.backend.dto.UserDTO;
 
 import com.getrentalverse.backend.service.UserService;
 
@@ -24,10 +24,10 @@ public class UserController {
 
 	@GetMapping("/{token}")
 	public ResponseEntity<?> findUserByToken(@PathVariable String token) {
-		User user = userService.findUserByToken(token);
+		UserDTO userDTO = userService.findUserByToken(token);
 
-		if (user != null) {
-			return ResponseEntity.status(HttpStatus.OK).body(user);
+		if (userDTO != null) {
+			return ResponseEntity.status(HttpStatus.OK).body(userDTO);
 		}
 
 		return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
