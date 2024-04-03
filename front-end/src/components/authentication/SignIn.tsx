@@ -51,7 +51,6 @@ const SignIn = () => {
   useEffect(() => {
     if (isLoginSuccess) {
       dispatch(setUser({ token: loginData?.token }));
-      console.log(authUser);
       navigate("/dashboard");
     }
   }, [dispatch, isLoginSuccess, authUser, loginData?.token, navigate]);

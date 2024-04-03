@@ -9,7 +9,6 @@ const Dashboard = () => {
   const dispatch = useAppDispatch();
 
   useEffect(() => {
-    console.log(user);
     if (user) {
       dispatch(setUser(user));
     }
