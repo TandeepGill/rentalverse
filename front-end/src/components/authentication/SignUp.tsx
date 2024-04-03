@@ -60,7 +60,6 @@ const SignUp = () => {
   useEffect(() => {
     if (isRegisterSuccess) {
       dispatch(setUser({ token: registerData?.token }));
-      console.log(authUser);
       navigate("/dashboard");
     }
   }, [dispatch, isRegisterSuccess, authUser, navigate, registerData?.token]);
