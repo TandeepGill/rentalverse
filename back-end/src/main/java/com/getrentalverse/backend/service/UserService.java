@@ -1,7 +1,7 @@
 package com.getrentalverse.backend.service;
 
-import com.getrentalverse.backend.model.User;
+import com.getrentalverse.backend.dto.UserDTO;
 
 public interface UserService {
-	User findUserByToken(String token);
+	UserDTO findUserByToken(String token);
 }
