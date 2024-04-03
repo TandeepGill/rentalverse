@@ -46,7 +46,7 @@ const SignUp = () => {
         lastName,
         username,
         password,
-        role: "USER",
+        role: "user",
       });
     }
   };
