@@ -54,6 +54,9 @@ public class User implements UserDetails {
 	@OneToMany(mappedBy = "user")
 	private List<Token> tokens;
 
+	@OneToMany(mappedBy = "user")
+	private List<Property> properties;
+
 	public Long getId() {
 		return id;
 	}
@@ -108,6 +111,14 @@ public class User implements UserDetails {
 
 	public void setTokens(List<Token> tokens) {
 		this.tokens = tokens;
+	}
+
+	public List<Property> getProperties() {
+		return properties;
+	}
+
+	public void setProperties(List<Property> properties) {
+		this.properties = properties;
 	}
 
 	@Override
