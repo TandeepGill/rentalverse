@@ -5,6 +5,8 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
 import jakarta.validation.constraints.NotBlank;
 
@@ -33,7 +35,7 @@ public class Property {
 
 	@Column(name = "zip")
 	@NotBlank(message = "Zip code cannot be blank. Please input a zip code.")
-	private String zip;
+	private int zip;
 
 	@Column(name = "country")
 	@NotBlank(message = "Country cannot be blank. Please input a country.")
@@ -54,4 +56,105 @@ public class Property {
 	@Column(name = "image")
 	@NotBlank(message = "Image cannot be blank. Please input a url for your image.")
 	private String image;
+
+	@ManyToOne
+	@JoinColumn(name = "FK_USER_ID")
+	private User user;
+
+	public Long getId() {
+		return id;
+	}
+
+	public void setId(Long id) {
+		this.id = id;
+	}
+
+	public String getAddress1() {
+		return address1;
+	}
+
+	public void setAddress1(String address1) {
+		this.address1 = address1;
+	}
+
+	public String getAddress2() {
+		return address2;
+	}
+
+	public void setAddress2(String address2) {
+		this.address2 = address2;
+	}
+
+	public String getCity() {
+		return city;
+	}
+
+	public void setCity(String city) {
+		this.city = city;
+	}
+
+	public String getState() {
+		return state;
+	}
+
+	public void setState(String state) {
+		this.state = state;
+	}
+
+	public int getZip() {
+		return zip;
+	}
+
+	public void setZip(int zip) {
+		this.zip = zip;
+	}
+
+	public String getCountry() {
+		return country;
+	}
+
+	public void setCountry(String country) {
+		this.country = country;
+	}
+
+	public int getBedroom() {
+		return bedroom;
+	}
+
+	public void setBedroom(int bedroom) {
+		this.bedroom = bedroom;
+	}
+
+	public int getBathroom() {
+		return bathroom;
+	}
+
+	public void setBathroom(int bathroom) {
+		this.bathroom = bathroom;
+	}
+
+	public int getSqft() {
+		return sqft;
+	}
+
+	public void setSqft(int sqft) {
+		this.sqft = sqft;
+	}
+
+	public String getImage() {
+		return image;
+	}
+
+	public void setImage(String image) {
+		this.image = image;
+	}
+
+	public User getUser() {
+		return user;
+	}
+
+	public void setUser(User user) {
+		this.user = user;
+	}
+
 }
