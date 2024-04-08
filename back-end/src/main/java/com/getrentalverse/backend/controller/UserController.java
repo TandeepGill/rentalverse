@@ -23,7 +23,7 @@ public class UserController {
 	private UserService userService;
 
 	@GetMapping(value = "/{token}", produces = "application/json")
-	public ResponseEntity<UserDTO> findUserByToken(@PathVariable String token) {
+	public ResponseEntity<?> findUserByToken(@PathVariable String token) {
 		UserDTO userDTO = userService.findUserByToken(token);
 
 		if (userDTO != null) {

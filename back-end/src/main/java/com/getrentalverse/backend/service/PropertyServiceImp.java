@@ -2,11 +2,16 @@ package com.getrentalverse.backend.service;
 
 import java.util.List;
 
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
 import com.getrentalverse.backend.model.Property;
 import com.getrentalverse.backend.repository.PropertyRepository;
 
+@Service
 public class PropertyServiceImp implements PropertyService {
 
+	@Autowired
 	private PropertyRepository propertyRepository;
 
 	public PropertyServiceImp(PropertyRepository propertyRepository) {
