@@ -1,5 +1,7 @@
 package com.getrentalverse.backend.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -35,7 +37,7 @@ public class Property {
 
 	@Column(name = "zip")
 	@NotBlank(message = "Zip code cannot be blank. Please input a zip code.")
-	private int zip;
+	private String zip;
 
 	@Column(name = "country")
 	@NotBlank(message = "Country cannot be blank. Please input a country.")
@@ -43,15 +45,15 @@ public class Property {
 
 	@Column(name = "bedroom")
 	@NotBlank(message = "Bedroom cannot be blank. Please input a bedroom.")
-	private int bedroom;
+	private String bedroom;
 
 	@Column(name = "bathroom")
 	@NotBlank(message = "Bathroom cannot be blank. Please input a bathroom.")
-	private int bathroom;
+	private String bathroom;
 
 	@Column(name = "sqft")
 	@NotBlank(message = "Sqft cannot be blank. Please input the size of property in sqft.")
-	private int sqft;
+	private String sqft;
 
 	@Column(name = "image")
 	@NotBlank(message = "Image cannot be blank. Please input a url for your image.")
@@ -59,6 +61,7 @@ public class Property {
 
 	@ManyToOne
 	@JoinColumn(name = "FK_USER_ID")
+	@JsonIgnoreProperties("properties")
 	private User user;
 
 	public Long getId() {
@@ -101,11 +104,11 @@ public class Property {
 		this.state = state;
 	}
 
-	public int getZip() {
+	public String getZip() {
 		return zip;
 	}
 
-	public void setZip(int zip) {
+	public void setZip(String zip) {
 		this.zip = zip;
 	}
 
@@ -117,27 +120,27 @@ public class Property {
 		this.country = country;
 	}
 
-	public int getBedroom() {
+	public String getBedroom() {
 		return bedroom;
 	}
 
-	public void setBedroom(int bedroom) {
+	public void setBedroom(String bedroom) {
 		this.bedroom = bedroom;
 	}
 
-	public int getBathroom() {
+	public String getBathroom() {
 		return bathroom;
 	}
 
-	public void setBathroom(int bathroom) {
+	public void setBathroom(String bathroom) {
 		this.bathroom = bathroom;
 	}
 
-	public int getSqft() {
+	public String getSqft() {
 		return sqft;
 	}
 
-	public void setSqft(int sqft) {
+	public void setSqft(String sqft) {
 		this.sqft = sqft;
 	}
 

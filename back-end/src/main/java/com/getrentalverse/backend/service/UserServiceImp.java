@@ -15,7 +15,7 @@ public class UserServiceImp implements UserService {
 	private UserDTOConverter userDTOConverter;
 	private UserRepository userRepository;
 	private JwtService jwtService;
-	
+
 	public UserServiceImp(UserDTOConverter userDTOConverter, UserRepository userRepository, JwtService jwtService) {
 		this.userDTOConverter = userDTOConverter;
 		this.userRepository = userRepository;
