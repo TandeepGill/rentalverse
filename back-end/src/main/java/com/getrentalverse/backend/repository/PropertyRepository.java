@@ -10,5 +10,5 @@ import com.getrentalverse.backend.model.Property;
 
 public interface PropertyRepository extends JpaRepository<Property, Long> {
 	@Query("SELECT p FROM Property p WHERE p.user.id = :userId")
-	List<Property> findAllPropertiesByUserId(@Param("userId")Long id);
+	List<Property> findAllPropertiesByUserId(@Param("userId") Long id);
 }

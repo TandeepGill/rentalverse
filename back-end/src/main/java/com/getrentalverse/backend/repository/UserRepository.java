@@ -10,7 +10,7 @@ import com.getrentalverse.backend.model.User;
 
 public interface UserRepository extends JpaRepository<User, Long> {
 	Optional<User> findByUsername(String username);
-	
+
 	@Query("SELECT u FROM User u WHERE u.username = :username")
 	User findUserByUsername(@Param("username") String username);
 }

@@ -9,6 +9,8 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.FieldError;
 import org.springframework.web.bind.annotation.CrossOrigin;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -44,5 +46,10 @@ public class PropertyController {
 		}
 
 		return new ResponseEntity<>(this.propertyService.saveProperty(property), HttpStatus.CREATED);
+	}
+	
+	@GetMapping("/users/{id}")
+	public ResponseEntity<?> findAllPropertiesByUserId(@PathVariable Long id) {
+		return new ResponseEntity<>(this.propertyService.findAllPropertiesByUserId(id), HttpStatus.OK);
 	}
 }
