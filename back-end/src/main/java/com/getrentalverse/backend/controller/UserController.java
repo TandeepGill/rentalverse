@@ -22,7 +22,8 @@ public class UserController {
 	@Autowired
 	private UserService userService;
 
-	@GetMapping(value = "/{token}", produces = "application/json")
+//	@GetMapping(value = "/{token}", produces = "application/json")
+	@GetMapping("/{token}")
 	public ResponseEntity<?> findUserByToken(@PathVariable String token) {
 		UserDTO userDTO = userService.findUserByToken(token);
 

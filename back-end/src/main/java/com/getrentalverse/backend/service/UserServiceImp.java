@@ -26,7 +26,9 @@ public class UserServiceImp implements UserService {
 	public UserDTO findUserByToken(String token) {
 		String username = jwtService.extractUsername(token);
 		User user = this.userRepository.findUserByUsername(username);
+		System.out.println(user.getFirstName() + " " + user.getLastName() + " " + user.getUsername());
 		UserDTO userDTO = userDTOConverter.convertUsertoUserDTO(user);
+		System.out.println(userDTO.getFirstName() + " " + userDTO.getLastName() + " " + userDTO.getUsername());
 
 		return userDTO;
 	}
