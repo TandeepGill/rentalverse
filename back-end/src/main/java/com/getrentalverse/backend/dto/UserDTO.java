@@ -12,21 +12,15 @@ import lombok.Data;
 @JsonInclude(JsonInclude.Include.ALWAYS)
 public class UserDTO {
 
-	@JsonProperty
 	private Long id;
 
-	@JsonProperty
 	private String firstName;
 
-	@JsonProperty
 	private String lastName;
 
-	@JsonProperty
 	private String username;
 
-	@JsonProperty
 	private Role role;
 
-	@JsonProperty
 	private List<Property> properties;
 }
