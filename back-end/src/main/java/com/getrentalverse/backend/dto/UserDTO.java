@@ -3,7 +3,6 @@ package com.getrentalverse.backend.dto;
 import java.util.List;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
-import com.getrentalverse.backend.model.Property;
 import com.getrentalverse.backend.model.Role;
 
 @JsonInclude(JsonInclude.Include.ALWAYS)
@@ -19,7 +18,7 @@ public class UserDTO {
 
 	private Role role;
 
-	private List<Property> properties;
+	private List<PropertyDTO> properties;
 
 	public Long getId() {
 		return id;
@@ -61,11 +60,11 @@ public class UserDTO {
 		this.role = role;
 	}
 
-	public List<Property> getProperties() {
+	public List<PropertyDTO> getProperties() {
 		return properties;
 	}
 
-	public void setProperties(List<Property> properties) {
+	public void setProperties(List<PropertyDTO> properties) {
 		this.properties = properties;
 	}
 
