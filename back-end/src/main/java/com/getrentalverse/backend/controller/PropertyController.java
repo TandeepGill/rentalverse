@@ -29,7 +29,6 @@ public class PropertyController {
 	@Autowired
 	private PropertyService propertyService;
 
-	
 	@PostMapping
 	public ResponseEntity<?> saveProperty(@Valid @RequestBody Property property, BindingResult bindingResult) {
 
@@ -47,7 +46,7 @@ public class PropertyController {
 
 		return new ResponseEntity<>(this.propertyService.saveProperty(property), HttpStatus.CREATED);
 	}
-	
+
 	@GetMapping("/users/{id}")
 	public ResponseEntity<?> findAllPropertiesByUserId(@PathVariable Long id) {
 		return new ResponseEntity<>(this.propertyService.findAllPropertiesByUserId(id), HttpStatus.OK);

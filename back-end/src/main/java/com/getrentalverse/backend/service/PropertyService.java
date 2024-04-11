@@ -2,12 +2,13 @@ package com.getrentalverse.backend.service;
 
 import java.util.List;
 
+import com.getrentalverse.backend.dto.PropertyDTO;
 import com.getrentalverse.backend.model.Property;
 
 public interface PropertyService {
-	Property saveProperty(Property property);
+	PropertyDTO saveProperty(Property property);
 
-	List<Property> findAllPropertiesByUserId(Long id);
+	List<PropertyDTO> findAllPropertiesByUserId(Long id);
 
 	boolean updatePropertyById(Long id, Property property);
 

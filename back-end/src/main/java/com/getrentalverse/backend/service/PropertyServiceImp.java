@@ -1,10 +1,13 @@
 package com.getrentalverse.backend.service;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.getrentalverse.backend.converter.PropertyDTOConverter;
+import com.getrentalverse.backend.dto.PropertyDTO;
 import com.getrentalverse.backend.model.Property;
 import com.getrentalverse.backend.repository.PropertyRepository;
 
@@ -12,20 +15,31 @@ import com.getrentalverse.backend.repository.PropertyRepository;
 public class PropertyServiceImp implements PropertyService {
 
 	@Autowired
+	private PropertyDTOConverter propertyDTOConverter;
 	private PropertyRepository propertyRepository;
 
-	public PropertyServiceImp(PropertyRepository propertyRepository) {
+	public PropertyServiceImp(PropertyDTOConverter propertyDTOConverter, PropertyRepository propertyRepository) {
+		this.propertyDTOConverter = propertyDTOConverter;
 		this.propertyRepository = propertyRepository;
 	}
 
 	@Override
-	public Property saveProperty(Property property) {
-		return this.propertyRepository.save(property);
+	public PropertyDTO saveProperty(Property property) {
+		Property savedProperty = this.propertyRepository.save(property);
+		return this.propertyDTOConverter.convertPropertytoPropertyDTO(savedProperty);
 	}
 
 	@Override
-	public List<Property> findAllPropertiesByUserId(Long id) {
-		return this.propertyRepository.findAllPropertiesByUserId(id);
+	public List<PropertyDTO> findAllPropertiesByUserId(Long id) {
+		List<Property> properties = this.propertyRepository.findAllPropertiesByUserId(id);
+		List<PropertyDTO> propertiesDTO = new ArrayList<PropertyDTO>();
+
+		for (Property property : properties) {
+			PropertyDTO propertyDTO = propertyDTOConverter.convertPropertytoPropertyDTO(property);
+			propertiesDTO.add(propertyDTO);
+		}
+
+		return propertiesDTO;
 	}
 
 	@Override
