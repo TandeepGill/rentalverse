@@ -1,7 +1,10 @@
 package com.getrentalverse.backend.dto;
 
+import java.util.List;
+
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonInclude;
+import com.getrentalverse.backend.model.Lease;
 
 @JsonInclude(JsonInclude.Include.ALWAYS)
 public class PropertyDTO {
@@ -16,6 +19,8 @@ public class PropertyDTO {
 	private String bathroom;
 	private String sqft;
 	private String image;
+
+	private List<Lease> leases;
 
 	@JsonIgnoreProperties("properties")
 	private UserDTO user;
@@ -106,6 +111,14 @@ public class PropertyDTO {
 
 	public void setImage(String image) {
 		this.image = image;
+	}
+
+	public List<Lease> getLeases() {
+		return leases;
+	}
+
+	public void setLeases(List<Lease> leases) {
+		this.leases = leases;
 	}
 
 	public UserDTO getUser() {
