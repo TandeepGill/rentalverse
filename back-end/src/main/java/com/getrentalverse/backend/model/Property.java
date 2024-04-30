@@ -1,5 +1,7 @@
 package com.getrentalverse.backend.model;
 
+import java.util.List;
+
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 import jakarta.persistence.Column;
@@ -9,6 +11,7 @@ import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
+import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
 import jakarta.validation.constraints.NotBlank;
 
@@ -58,6 +61,9 @@ public class Property {
 	@Column(name = "image")
 	@NotBlank(message = "Image cannot be blank. Please input a url for your image.")
 	private String image;
+
+	@OneToMany(mappedBy = "property")
+	private List<Lease> leases;
 
 	@ManyToOne
 	@JoinColumn(name = "FK_USER_ID")
@@ -150,6 +156,14 @@ public class Property {
 
 	public void setImage(String image) {
 		this.image = image;
+	}
+
+	public List<Lease> getLeases() {
+		return leases;
+	}
+
+	public void setLeases(List<Lease> leases) {
+		this.leases = leases;
 	}
 
 	public User getUser() {
