@@ -20,7 +20,7 @@ public class PropertyDTO {
 	private String sqft;
 	private String image;
 
-	private List<Lease> leases;
+	private List<LeaseDTO> leases;
 
 	@JsonIgnoreProperties("properties")
 	private UserDTO user;
@@ -113,11 +113,11 @@ public class PropertyDTO {
 		this.image = image;
 	}
 
-	public List<Lease> getLeases() {
+	public List<LeaseDTO> getLeases() {
 		return leases;
 	}
 
-	public void setLeases(List<Lease> leases) {
+	public void setLeases(List<LeaseDTO> leases) {
 		this.leases = leases;
 	}
 

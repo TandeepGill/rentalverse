@@ -3,6 +3,7 @@ package com.getrentalverse.backend.model;
 import java.math.BigDecimal;
 import java.sql.Date;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 import jakarta.persistence.Column;
@@ -14,6 +15,7 @@ import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
 import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Size;
 
 @Entity
@@ -35,20 +37,22 @@ public class Lease {
 	private String lastName;
 
 	@Column(name = "start_date")
-	@NotBlank(message = "Start date cannot be blank. Please input a start date.")
+	@NotNull(message = "Start date cannot be blank. Please input a start date.")
+	@JsonFormat(pattern = "yyyy-MM-dd")
 	private Date startDate;
 
 	@Column(name = "end_date")
-	@NotBlank(message = "End date cannot be blank. Please input an end date.")
+	@NotNull(message = "End date cannot be blank. Please input an end date.")
+	@JsonFormat(pattern = "yyyy-MM-dd")
 	private Date endDate;
 
 	@Column(name = "price")
-	@NotBlank(message = "Price cannot be blank. Please input a price.")
+	@NotNull(message = "Price cannot be blank. Please input a price.")
 	private BigDecimal price;
 
 	@Column(name = "is_Current_Tenant")
-	@NotBlank(message = "Is current tenant cannot be blank. Please input true or false.")
-	private boolean isCurrentTenant;
+	@NotNull(message = "isCurrentTenant cannot be null. Please enter true or false if current tenant.")
+	private Boolean isCurrentTenant;
 
 	@ManyToOne
 	@JoinColumn(name = "FK_PROPERTY_ID")
@@ -103,11 +107,11 @@ public class Lease {
 		this.price = price;
 	}
 
-	public boolean isCurrentTenant() {
+	public Boolean getIsCurrentTenant() {
 		return isCurrentTenant;
 	}
 
-	public void setCurrentTenant(boolean isCurrentTenant) {
+	public void setIsCurrentTenant(Boolean isCurrentTenant) {
 		this.isCurrentTenant = isCurrentTenant;
 	}
 

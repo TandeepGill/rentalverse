@@ -9,16 +9,16 @@ import com.getrentalverse.backend.model.Property;
 
 @Component
 public class PropertyDTOConverter {
-	
+
 	@Autowired
 	private ModelMapper modelMapper;
-	
+
 	public PropertyDTO convertPropertytoPropertyDTO(Property property) {
 		PropertyDTO propertyDTO = modelMapper.map(property, PropertyDTO.class);
 		return propertyDTO;
 	}
-	
-	public Property convertPropertyDTOtoProperty(PropertyDTOConverter propertyDTO) {
+
+	public Property convertPropertyDTOtoProperty(PropertyDTO propertyDTO) {
 		Property property = modelMapper.map(propertyDTO, Property.class);
 		return property;
 	}
