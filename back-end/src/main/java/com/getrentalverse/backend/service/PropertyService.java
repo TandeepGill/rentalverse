@@ -12,5 +12,5 @@ public interface PropertyService {
 
 	boolean updatePropertyById(Long id, Property property);
 
-	boolean deleteParcelById(Long id);
+	boolean deletePropertyById(Long id);
 }

@@ -53,7 +53,7 @@ public class PropertyServiceImp implements PropertyService {
 	}
 
 	@Override
-	public boolean deleteParcelById(Long id) {
+	public boolean deletePropertyById(Long id) {
 		if (this.propertyRepository.existsById(id)) {
 			this.propertyRepository.deleteById(id);
 			return true;
