@@ -9,6 +9,7 @@ import Landing from "./pages/Landing";
 import Header from "./components/header/Header";
 import Footer from "./components/footer/Footer";
 import Error404 from "./components/error/Error404";
+import Properties from "./pages/Properties";
 
 function App() {
   const dispatch = useAppDispatch();
@@ -32,6 +33,7 @@ function App() {
             </PrivateRoute>
           }
         />
+        <Route path='/properties' element={<Properties />} />
         <Route path='*' element={<Error404 />} />
       </Routes>
       <Footer />
