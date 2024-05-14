@@ -62,6 +62,10 @@ public class Property {
 	@NotBlank(message = "Image cannot be blank. Please input a url for your image.")
 	private String image;
 
+	@Column(name = "type")
+	@NotBlank(message = "Type cannot be blank. Please input a type for your property.")
+	private String type;
+
 	@OneToMany(mappedBy = "property")
 	private List<Lease> leases;
 
@@ -156,6 +160,14 @@ public class Property {
 
 	public void setImage(String image) {
 		this.image = image;
+	}
+
+	public String getType() {
+		return type;
+	}
+
+	public void setType(String type) {
+		this.type = type;
 	}
 
 	public List<Lease> getLeases() {

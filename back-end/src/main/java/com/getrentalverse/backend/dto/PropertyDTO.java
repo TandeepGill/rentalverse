@@ -19,6 +19,7 @@ public class PropertyDTO {
 	private String bathroom;
 	private String sqft;
 	private String image;
+	private String type;
 
 	private List<LeaseDTO> leases;
 
@@ -111,6 +112,14 @@ public class PropertyDTO {
 
 	public void setImage(String image) {
 		this.image = image;
+	}
+
+	public String getType() {
+		return type;
+	}
+
+	public void setType(String type) {
+		this.type = type;
 	}
 
 	public List<LeaseDTO> getLeases() {
