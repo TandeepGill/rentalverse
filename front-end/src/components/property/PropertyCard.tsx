@@ -4,11 +4,11 @@ import { formatNumericStringWithComma } from "../../utils/formatter";
 const PropertyCard = () => {
   const property = {
     id: 1,
-    address1: "123 Main Street",
-    address2: "Apt 101",
-    city: "Exampleville",
-    state: "EX",
-    zip: "12345",
+    address1: "471 Gladwell Street",
+    address2: "",
+    city: "Livermore",
+    state: "CA",
+    zip: "94550",
     country: "United States",
     bedroom: "3",
     bathroom: "2",
@@ -22,7 +22,7 @@ const PropertyCard = () => {
     <>
       <div
         key={property.id}
-        className='m-auto mb-6 flex w-96 flex-col items-center rounded-md border-2 border-orange-300 p-2 shadow-[0_35px_60px_-15px_rgba(0,0,0,0.3)] sm:w-72 lg:m-2'
+        className='m-auto mb-6 flex w-96 flex-col items-center rounded-md border-2 border-orange-300 p-2 shadow-xl sm:w-72 lg:m-2'
       >
         <Link to={`/properties/${property.id}`}>
           <div className='m-0.5'>
@@ -33,8 +33,10 @@ const PropertyCard = () => {
             />
           </div>
           <h3 className='mb-2 mt-6 text-center font-medium text-gray-900'>
-            {`${property.address1}, ${property.address2}`}
+            {`${property.address1},`}
             <br />
+            {property.address2.length > 0 && ` ${property.address2},`}
+            {property.address2.length > 0 && <br />}
             {`${property.city}, ${property.state} ${property.zip}`}
           </h3>
           <h4 className='mb-2 text-center text-base text-gray-500'>
