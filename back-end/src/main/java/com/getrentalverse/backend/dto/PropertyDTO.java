@@ -4,7 +4,6 @@ import java.util.List;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonInclude;
-import com.getrentalverse.backend.model.Lease;
 
 @JsonInclude(JsonInclude.Include.ALWAYS)
 public class PropertyDTO {
