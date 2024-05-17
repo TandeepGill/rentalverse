@@ -1,23 +1,22 @@
 import { Link } from "react-router-dom";
 import { formatNumericStringWithComma } from "../../utils/formatter";
 
-const PropertyCard = () => {
-  const property = {
-    id: 1,
-    address1: "471 Gladwell Street",
-    address2: "",
-    city: "Livermore",
-    state: "CA",
-    zip: "94550",
-    country: "United States",
-    bedroom: "3",
-    bathroom: "2",
-    sqft: "2500",
-    image:
-      "https://media.istockphoto.com/photos/new-contemporary-home-picture-id175587524?b=1&k=20&m=175587524&s=170667a&w=0&h=l0woDAaSwONgJ6xF_sFSZ8r9RG_qsT7E4TSVV2W13wU=",
-    type: "Single-Family",
-  };
+interface PropertyProps {
+  id: number;
+  address1: string;
+  address2: string;
+  city: string;
+  state: string;
+  zip: string;
+  country: string;
+  bedroom: string;
+  bathroom: string;
+  sqft: string;
+  image: string;
+  type: string;
+}
 
+const PropertyCard = ({ property }: { property: PropertyProps }) => {
   return (
     <>
       <div
@@ -34,9 +33,8 @@ const PropertyCard = () => {
           </div>
           <h3 className='mb-2 mt-6 text-center font-medium text-gray-900'>
             {`${property.address1},`}
-            <br />
             {property.address2.length > 0 && ` ${property.address2},`}
-            {property.address2.length > 0 && <br />}
+            <br />
             {`${property.city}, ${property.state} ${property.zip}`}
           </h3>
           <h4 className='mb-2 text-center text-base text-gray-500'>
